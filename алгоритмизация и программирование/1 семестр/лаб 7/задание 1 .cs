@@ -3,42 +3,48 @@
 убывающую последовательность
 *******************************************************************************/
 using System;
-class HelloWorld
+using System.Runtime.ExceptionServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+class Program
 {
-    static int[][] Zapoln(int[][] array)
+    static void Main(string[] args)
     {
-        for (int i = 0; i < array.Length; i++)
+        int N = int.Parse(Console.ReadLine());
+        int[][] array = new int[N][];
+        for (int i = 0; i < N; i++)
         {
-            int m = int.Parse(Console.ReadLine());
-            array[i] = new int[m];
-            for (int j = 0; j < m; j++)
+            Console.Write($"Размерность массива {i + 1}: ");
+            int length = int.Parse(Console.ReadLine());
+            array[i] = new int[length];
+            Console.WriteLine($"Введите {length} элементов для массива {i + 1}:");
+            for (int j = 0; j < length; j++)
             {
                 array[i][j] = int.Parse(Console.ReadLine());
             }
         }
-        return array;
-    }
-    static void Main()
-    {
-        int n = int.Parse(Console.ReadLine());
-        int[][] array = new int[n][];
-        array = Zapoln(array);
-        int t = 0;
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < array.Length; i++)
         {
-            int num = array[i].Length;
-            int c = 0;
-            for (int j = 0; j < num; j++)
+            int count = 0;
+            int razn = 0;
+            for (int k = 0; k < array[i].Length; k++) 
             {
-                if (j != 0 && array[i][j] < array[i][j - 1])
+
+                int elfirst = array[i][0];
+                if (array[i].Length > 1)
                 {
-                    c++;
-                }
-                if (c + 1 == num)
-                {
-                    Console.WriteLine("строка: " + (i + 1));
+                    razn = elfirst - array[i][1];
+                    for (int j = 1; j < array[i].Length; j++)
+                    {
+                        if ((array[i][j - 1] - array[i][j]) == razn)
+                        {
+                            count += 1;
+                        }
+                    }
+                    if (count == array[i].Length - 1)
+                        Console.WriteLine(i);
                 }
             }
+
         }
     }
 }
