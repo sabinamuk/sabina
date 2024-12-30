@@ -1,75 +1,50 @@
 /******************************************************************************
-Лаб 10 (06.12.24)
+Лаб 7 ( 08.11.24) - На вход подается зубчатый массив.
+С помощью функции организовать ввод каждой строки массива.
+Определить номера строк, элементы в которых образуют равномерно убывающую последовательность.
 *******************************************************************************/
 using System;
-using System.Linq;
-class Calculator
+using System.Runtime.ExceptionServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+class Program
 {
-    int a;
-    int b;
-    public Calculator()
+    static void Main(string[] args)
     {
-        a = 0;
-        b = 0;
-    }
-    public Calculator(int a)
-    {
-        this.a = a;
-        b = 0;
-    }
-    public Calculator(int a, int b)
-    {
-        this.a = a;
-        this.b = b;
-    }
-    public void Sum()
-    {
-        Console.WriteLine(a + b);
-    }
-    public void Subtract(int a, int b)
-    {
-        Console.WriteLine(a - b);
-    }
-    public void Subtract()
-    {
-        Console.WriteLine(a - b);
-    }
-    public void Mult()
-    {
-        Console.WriteLine(a * b);
-    }
-    public void Divide()
-    {
-        Console.WriteLine(b != 0 ? ((double)a / (double)b) : "Деление на ноль");
-    }
-}
-class HelloWorld
-{
-    static void Main()
-    {
-        Calculator calc1 = new Calculator(9, 6);
-        calc1.Sum();
-        calc1.Subtract();
-        calc1.Subtract(6, 9);
-        calc1.Mult();
-        calc1.Divide();
+        int N = int.Parse(Console.ReadLine());
+        int[][] array = new int[N][];
+        for (int i = 0; i < N; i++)
+        {
+            Console.Write($"Размерность массива {i + 1}: ");
+            int length = int.Parse(Console.ReadLine());
+            array[i] = new int[length];
+            Console.WriteLine($"Введите {length} элементов для массива {i + 1}:");
+            for (int j = 0; j < length; j++)
+            {
+                array[i][j] = int.Parse(Console.ReadLine());
+            }
+        }
+        for (int i = 0; i < array.Length; i++) 
+        {
+            int count = 0;
+            int razn = 0;
+            for (int k = 0; k < array[i].Length; k++) 
+            {
+                int elfirst = array[i][0];
+                if (array[i].Length > 1)
+                {
+                    razn = elfirst - array[i][1];
+                    for (int j = 1; j < array[i].Length; j++) 
+                    {
+                        if ((array[i][j - 1] - array[i][j]) == razn)
+                        {
+                            count += 1;
+                        }
 
-        Console.WriteLine();
-
-        Calculator calc2 = new Calculator(9);
-        calc2.Sum();
-        calc2.Subtract();
-        calc2.Subtract(0, 9);
-        calc2.Mult();
-        calc2.Divide();
-
-        Console.WriteLine();
-
-        Calculator calc3 = new Calculator();
-        calc3.Sum();
-        calc3.Subtract();
-        //calc3.Subtract();
-        calc3.Mult();
-        calc3.Divide();
+                    }
+                    if (count == array[i].Length - 1)
+                        Console.WriteLine(i);
+                }
+            }
+        }
     }
 }
