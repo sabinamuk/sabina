@@ -39,7 +39,6 @@ class Program
                         {
                             count += 1;
                         }
-
                     }
                     if (count == array[i].Length - 1)
                         Console.WriteLine(i);
