@@ -9,26 +9,36 @@ class Program
 {
     static void Main()
     {
-        string a = Console.ReadLine();
-        char[] m = {'a', 'b', 'c'};
-        int max = 0;
-        for (int i = 0; i < a.Length; i++)
+        string input = Console.ReadLine();
+        int currentLength = 0;
+        int maxLength = 0;
+        char[] view = { 'a', 'b', 'c' };
+        int view_Index = 0;
+        foreach (char c in input)
         {
-            int temp = 0;
-            if(a[i] == 'a')
+            if (c == view[view_Index])
             {
-                while (i + 1 < a.Length && a[i + 1] == m[(temp + 1) % 3])
+                currentLength++;
+                view_Index++;
+                if (view_Index == view.Length)
                 {
-                    temp++;
-                    i++;
+                    view_Index = 0;
                 }
-                temp++;
-            if (temp > max)
+            }
+            else if (c == 'a')
             {
-                max = temp;
+                currentLength++;
+                view_Index = 1;
             }
+            else
+            {
+                currentLength = 0;
+                view_Index = 0;
             }
+
+            maxLength = Math.Max(maxLength, currentLength);
         }
-        Console.WriteLine(max);
+
+        Console.WriteLine(maxLength);
     }
 }
