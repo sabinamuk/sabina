@@ -35,7 +35,7 @@ class Program
                 }
             }
         }
-        Console.WriteLine("Результирующая матрица кратчайших путей:");
+        Console.WriteLine("матрица кратчайших путей:");
         for (int i = 0; i < numVertices; i++)
         {
             for (int j = 0; j < numVertices; j++)
